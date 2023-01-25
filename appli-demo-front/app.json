@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "AppliDemo",
-    "slug": "AppliDemo",
+    "name": "appli-demo-front",
+    "slug": "appli-demo-front",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
