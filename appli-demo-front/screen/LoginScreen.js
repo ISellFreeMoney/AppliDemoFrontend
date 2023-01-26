@@ -2,13 +2,20 @@ import React, {useState} from 'react';
 import {View, StyleSheet, KeyboardAvoidingView} from 'react-native';
 import { Button, Input, Image} from '@rneui/themed';
 import {StatusBar} from 'expo-status-bar';
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import {auth} from '../firebase';
 
 const LoginScreen = ({navigation}) => {
 	const [email,setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
 	const signIn = () => {
-
+			signInWithEmailAndPassword(auth, email, password)
+			.then(authUser =>{
+				const user = authUser.user;
+			}).catch((error) => {
+				alert(error);
+			})
 	}
 	return (
 		<KeyboardAvoidingView behavior='padding: 1' style={styles.container}>
@@ -18,15 +25,15 @@ const LoginScreen = ({navigation}) => {
 				uri:
 				"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/2048px-Instagram_icon.png",
 			}}
-			style={{ width: 100, height: 100}}
+			style={{ width: 200, height: 200}}
 			/>
 			<View style={styles.inputContainer}>
 				<Input placeholder='Adresse Mail' autoFocus type='Email' value={email}  onChangeText={(text) => setEmail(text)} />
 				<Input placeholder='Mot de passe' secureTextEntry type='password' value={password} onChangeText={(text) => setPassword(text)} />
 			</View>
 
-			<Button containerStyle={styles.button} onPress={signIn} title="Login"/>
-			<Button containerStyle={styles.button} onPress={() => navigation.navigate('Register')} type="outline" title="Register"/>
+			<Button raised containerStyle={styles.button} onPress={signIn} title="Se connecter"/>
+			<Button containerStyle={styles.button} onPress={() => navigation.navigate('Register')} type="outline" title="S'inscrire"/>
 		</KeyboardAvoidingView>
 	);
 }
